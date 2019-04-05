@@ -7,6 +7,7 @@ Asset.allAssets = [];
 function Asset(name,filepath) {
   this.name=name;
   this.filepath=filepath;
+  this.clicks=0;
   Asset.allAssets.push(this);
 }
 
@@ -64,15 +65,20 @@ function randomAsset() {
 }
 randomAsset();
 
+var totalClicks=0;
 //display ramdom asset images
 function randomAssetClick(p) {
   var path1b = imageContainer1.src;
   var path2b = imageContainer2.src;
   var path3b = imageContainer3.src;
-  //alert(path1);
+  totalClicks++;
+  alert(totalClicks);
   do {
     var randomIdx1 = Math.floor(Math.random() * Asset.allAssets.length);
     imageContainer1.src = Asset.allAssets[randomIdx1].filepath;
+    if(p===1){
+      Asset.allAssets[randomIdx1].clicks++;
+    }
     var path1a= imageContainer1.src;
     var sameImage = false;
     if(path1a===path1b && p===1) {
@@ -85,6 +91,9 @@ function randomAssetClick(p) {
   do {
     var randomIdx2 = Math.floor(Math.random() * Asset.allAssets.length);
     imageContainer2.src = Asset.allAssets[randomIdx2].filepath;
+    if(p===2){
+      Asset.allAssets[randomIdx2].clicks++;
+    }
     var path2a= imageContainer2.src;
     var sameImage = false;
     if(path2a===path2b && p===2) {
@@ -96,6 +105,9 @@ function randomAssetClick(p) {
   do {
     var randomIdx3 = Math.floor(Math.random() * Asset.allAssets.length);
     imageContainer3.src = Asset.allAssets[randomIdx3].filepath;
+    if(p===3){
+      Asset.allAssets[randomIdx3].clicks++;
+    }
     var path3a= imageContainer3.src;
     var sameImage = false;
     if(path3a===path3b && p===3) {
@@ -103,4 +115,10 @@ function randomAssetClick(p) {
     } 
   }
   while(randomIdx1 == randomIdx3 || randomIdx2 == randomIdx3 || sameImage);
+
+  if(totalClicks===25){
+    imageContainer1.removeEventListener('click', randomAsset);
+    imageContainer2.removeEventListener('click',randomAsset);
+    imageContainer3.removeEventListener('click',randomAsset);
+  }
 }
