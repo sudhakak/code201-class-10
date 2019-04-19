@@ -32,6 +32,16 @@ new Asset('usb','img/usb.gif');
 new Asset('water-can','img/water-can.jpg');
 new Asset('wine-glass','img/wine-glass.jpg');
 
+function dataLocalStorage() { 
+  if(typeof(Storage) !== 'undefined') {
+    if (localStorage.clickcount) {
+      localStorage.clickcount = Number(localStorage.clickcount)+1;
+    } else {
+      localStorage.clickcount = 1;
+    }
+  }
+}
+
 //event listener to trackt clicks of assets images
 var p1=1;
 var p2=2;
@@ -122,6 +132,7 @@ function randomAssetClick(p) {
       imageContainer3.removeEventListener('click',randomAsset);
     }
   }
+  dataLocalStorage();
 }
 
 function randomColor() {
